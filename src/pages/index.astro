@@ -1,0 +1,365 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import FaqSection from '@components/FaqSection.astro';
+import QuoteForm from '@components/QuoteForm.astro';
+import CityLinks from '@components/CityLinks.astro';
+import { SITE, tel } from '@config/site';
+import { SERVICES, type Faq } from '@config/services';
+import { serviceUrl } from '../lib/urls';
+import { defaultHero, getHeroUrl } from '../lib/images';
+import { faqPage } from '../lib/schema';
+import whyUsImg from '../assets/services/septic-inspections.jpg';
+import ctaImg from '../assets/services/septic-services.jpg';
+
+const title = `Olympic Peninsula Septic Pumping, Repair & Inspections`;
+const description = `Septic service across ${SITE.region}: tank pumping, cleaning, repairs, inspections, drain fields, and emergencies. Honest, local crew that knows Puget Sound and Hood Canal systems. Call ${SITE.phoneDisplay} for a fast quote.`;
+
+// Optimized background images (LCP hero preloaded via BaseLayout).
+const heroUrl = await getHeroUrl(defaultHero);
+const ctaUrl = await getHeroUrl(ctaImg);
+
+// Simple inline line-icons per service (keyed by slug) — no icon-font dependency.
+const icons: Record<string, string> = {
+  'septic-services':
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h18M5 8v9a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8M9 8V5h6v3"/><path d="M12 12v4"/></svg>',
+  'septic-tank-pumping':
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h14l-1 6H6L5 4z"/><path d="M6 10v8a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-8"/><path d="M12 13v4"/></svg>',
+  'septic-tank-cleaning':
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6"/><path d="M21 21l-4.3-4.3"/></svg>',
+  'septic-system-repair':
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 6a3.5 3.5 0 0 0-4.7 4.5L4 16l3 3 5.5-5.3A3.5 3.5 0 0 0 17 9l-2 2-2-2 2-2z"/></svg>',
+  'septic-inspections':
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v9h14v-9"/><path d="M9 19v-5h6v5"/></svg>',
+  'drain-field-repair':
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h16"/><path d="M8 7v10M16 7v10"/></svg>',
+  'emergency-septic-service':
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17h.01"/></svg>',
+};
+
+// Homepage FAQs (rendered + FAQ schema via FaqSection / faqPage).
+const homeFaqs: Faq[] = [
+  {
+    q: 'How often should I have my septic tank pumped?',
+    a: 'For most households, every three to five years, depending on tank size and how many people live in the home. Smaller tanks, larger families, and waterfront vacation cabins need it more often. If you cannot remember the last time it was pumped, it is overdue — call and we will get you on a schedule.',
+  },
+  {
+    q: 'What septic work do you do?',
+    a: 'Tank pumping and cleaning, system repairs (baffles, lids, lines, pumps, and floats), drain field diagnosis and repair, and inspections for home sales. We also handle emergency backups. One local crew covers the whole system across the Olympic Peninsula and Kitsap.',
+  },
+  {
+    q: 'Do you handle the shoreline inspection and pumping records my county wants?',
+    a: 'Yes. On Hood Canal and the Puget Sound shoreline, Kitsap, Jefferson, and Mason counties expect regular inspections and pumping records to protect water quality and shellfish. We service these systems to the county’s operation-and-maintenance expectations and keep the paperwork you need.',
+  },
+  {
+    q: 'Can you come the same day?',
+    a: 'Same-day service is often possible, especially for urgent problems like a backup or an overflow. Ask when you call and we will give you a real time — not a runaround.',
+  },
+  {
+    q: 'My tank is on a waterfront or wooded lot with no records — can you still service it?',
+    a: 'Almost always. Peninsula access and unmarked tanks are most of what we do out here. We locate and dig to buried lids, and bring extra hose so the truck can stay where it fits and still reach a tank down a bank or back in the trees.',
+  },
+  {
+    q: 'What areas do you cover?',
+    a: 'Port Angeles, Sequim, Port Townsend, Forks, Poulsbo, Silverdale, Bremerton, Port Orchard, Belfair, Shelton, and the surrounding communities across Clallam, Jefferson, Kitsap, and Mason counties. If you are not sure we reach you, call and ask — we likely do.',
+  },
+];
+
+const jsonLd = faqPage(homeFaqs) ?? [];
+---
+
+<BaseLayout title={title} description={description} jsonLd={jsonLd} heroPreload={heroUrl}>
+  <!-- 1. Hero — background photo, eyebrow, headline, actions, trust row -->
+  <section class="hero" style={`background-image:url('${heroUrl}')`}>
+    <div class="container">
+      <p class="eyebrow">Clallam · Jefferson · Kitsap · Mason — {SITE.region}</p>
+      <h1>Septic Service for the Olympic Peninsula</h1>
+      <p>
+        Fast, reliable septic service across {SITE.region} — pumping, cleaning, real-estate
+        inspections, repairs, drain field replacement, and new system work. Serving the Strait,
+        Hood Canal, and the Kitsap shoreline.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-call btn-lg" href={tel()}>📞 Call {SITE.phoneDisplay}</a>
+        <a class="btn btn-outline btn-lg" href="#services">View Services</a>
+      </div>
+      <div class="trust-row">
+        <span><i class="dot"></i>Up-front pricing</span>
+        <span><i class="dot"></i>Same-week scheduling</span>
+        <span><i class="dot"></i>Drain field experts</span>
+        <span><i class="dot"></i>Shoreline-rule savvy</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Value band — four quick stats -->
+  <section class="value-band">
+    <div class="container grid4">
+      <div class="value-item"><strong>3–5 yr</strong><span>recommended pump cycle</span></div>
+      <div class="value-item"><strong>$8K–$25K</strong><span>drain field jobs done right</span></div>
+      <div class="value-item"><strong>Same week</strong><span>scheduling across the peninsula</span></div>
+      <div class="value-item"><strong>4 counties</strong><span>Clallam, Jefferson, Kitsap &amp; Mason</span></div>
+    </div>
+  </section>
+
+  <!-- 3. Services — icon-card grid -->
+  <section class="section" id="services">
+    <div class="container">
+      <div class="section-head center">
+        <p class="eyebrow">What we do</p>
+        <h2>Our Septic Services</h2>
+        <p class="lead muted">
+          From routine pumping to a full drain field rebuild — everything a peninsula property needs.
+        </p>
+      </div>
+      <div class="svc-grid icon-grid">
+        {SERVICES.map((s) => (
+          <a class="card icard" href={serviceUrl(s)}>
+            <span class="ic" set:html={icons[s.slug]} />
+            {s.emergency && <span class="badge">Emergency</span>}
+            <h3>{s.name}</h3>
+            <p class="muted">{s.blurb}</p>
+            <span class="icard-link">Learn more →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. How It Works -->
+  <section class="section section-soft">
+    <div class="container">
+      <div class="section-head center">
+        <p class="eyebrow">Simple process</p>
+        <h2>How It Works</h2>
+      </div>
+      <div class="issue-grid">
+        <div class="card">
+          <h3>1. Call for a quote</h3>
+          <p class="muted">
+            Tell us what you’re seeing — or that you’re just due. We give you a firm price up front,
+            no surprises.
+          </p>
+        </div>
+        <div class="card">
+          <h3>2. We service your system</h3>
+          <p class="muted">
+            Pumping, cleaning, inspection, repair, or drain field work — done right and explained in
+            plain terms.
+          </p>
+        </div>
+        <div class="card">
+          <h3>3. Stay ahead of problems</h3>
+          <p class="muted">
+            We set you up on a simple schedule — more often for cabins and rentals — so you never
+            face a backup, and you keep the records your county wants.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Why us — media row -->
+  <section class="section">
+    <div class="container">
+      <div class="srow">
+        <div class="srow-media">
+          <Image
+            src={whyUsImg}
+            alt="Septic technician inspecting an open tank at an Olympic Peninsula home"
+            widths={[480, 760, 1000]}
+            sizes="(max-width: 920px) 100vw, 500px"
+            loading="lazy"
+            style="border-radius:var(--radius);width:100%;"
+          />
+        </div>
+        <div class="srow-body">
+          <p class="eyebrow">Why us</p>
+          <h2>Why Peninsula Homeowners Call Us</h2>
+          <ul class="checklist">
+            <li><strong>Up-front pricing</strong> — a firm quote before we start, no surprises.</li>
+            <li><strong>Cabin &amp; rental schedules</strong> — built for heavy weekend guest loads on the canal.</li>
+            <li><strong>Real-estate inspections</strong> — meet the time-of-sale rule and know the system before you close.</li>
+            <li><strong>Shoreline &amp; O&amp;M savvy</strong> — Hood Canal and Puget Sound records done right.</li>
+            <li><strong>Fast, local &amp; same-week</strong> — across Clallam, Jefferson, Kitsap &amp; Mason.</li>
+          </ul>
+          <p><a class="btn btn-call btn-lg" href={tel()}>📞 Call {SITE.phoneDisplay}</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Service area -->
+  <CityLinks
+    title="Areas We Serve"
+    sub="Serving the Olympic Peninsula and Kitsap communities on private septic."
+  />
+
+  <!-- 7. FAQ -->
+  <FaqSection faqs={homeFaqs} title="Frequently Asked Questions" />
+
+  <!-- 8. Quote form (keeps the Contact anchor + lead capture; call is still primary) -->
+  <section class="section section-soft">
+    <div class="container" style="max-width:720px;">
+      <QuoteForm source="home" />
+    </div>
+  </section>
+
+  <!-- 9. Photo CTA band -->
+  <section class="cta-photo" style={`background-image:url('${ctaUrl}')`}>
+    <div class="container center">
+      <h2>Need septic service on the Olympic Peninsula?</h2>
+      <p>Up-front pricing and fast scheduling for pumping, inspections, repairs, and drain field work. Call now for a quote.</p>
+      <p><a class="btn btn-call btn-lg" href={tel()}>📞 Call {SITE.phoneDisplay}</a></p>
+    </div>
+  </section>
+
+  <!-- Sticky mobile call bar -->
+  <a class="mobile-call" href={tel()}>📞 Call {SITE.phoneDisplay}</a>
+</BaseLayout>
+
+<style>
+  /* eyebrow label */
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--green);
+    margin: 0 0 8px;
+  }
+  .hero .eyebrow {
+    color: #f2d7a6;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  }
+  .section-head.center .eyebrow {
+    color: var(--green-dark);
+  }
+
+  /* value band */
+  .value-band {
+    background: var(--navy);
+    color: #fff;
+    padding: 22px 0;
+  }
+  .grid4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    text-align: center;
+  }
+  .value-item strong {
+    display: block;
+    color: #fff;
+    font-size: 1.6rem;
+    line-height: 1.1;
+  }
+  .value-item span {
+    color: #d9d3c9;
+    font-size: 0.92rem;
+  }
+
+  /* icon service cards */
+  .icon-grid .icard {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .icard:hover {
+    border-color: #999;
+  }
+  .icard .ic {
+    color: var(--green);
+    width: 40px;
+    height: 40px;
+    margin-bottom: 10px;
+  }
+  .icard .ic :global(svg) {
+    width: 40px;
+    height: 40px;
+  }
+  .icard h3 {
+    margin-bottom: 6px;
+  }
+  .icard-link {
+    margin-top: auto;
+    padding-top: 10px;
+    font-weight: bold;
+    color: var(--green-dark);
+  }
+
+  /* why-us media row body */
+  .srow-body .eyebrow {
+    color: var(--green-dark);
+  }
+  .srow-body h2 {
+    margin-bottom: 12px;
+  }
+  .srow-body .btn {
+    margin-top: 6px;
+  }
+
+  /* photo CTA band */
+  .cta-photo {
+    position: relative;
+    background-color: var(--navy);
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    padding: 72px 0;
+    text-align: center;
+  }
+  .cta-photo::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(24, 20, 12, 0.62);
+  }
+  .cta-photo > .container {
+    position: relative;
+    z-index: 1;
+  }
+  .cta-photo h2 {
+    color: #fff;
+  }
+  .cta-photo p {
+    color: #eaf1f7;
+    max-width: 56ch;
+    margin: 0 auto 18px;
+    font-size: 1.05rem;
+  }
+
+  /* sticky mobile call bar */
+  .mobile-call {
+    display: none;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 60;
+    background: var(--green);
+    color: var(--amber-ink);
+    text-align: center;
+    text-decoration: none;
+    font-weight: 800;
+    padding: 14px 12px;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  @media (max-width: 920px) {
+    .grid4 {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px 12px;
+    }
+  }
+  @media (max-width: 600px) {
+    .mobile-call {
+      display: block;
+    }
+    :global(body) {
+      padding-bottom: 52px;
+    }
+  }
+</style>
