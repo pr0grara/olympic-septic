@@ -72,7 +72,7 @@ export const SERVICES: Service[] = [
     faqs: [
       {
         q: 'How often should a septic tank be pumped?',
-        a: 'For most households, every three to five years, depending on tank size and how many people live in the home. Smaller tanks, larger families, and waterfront cabins used as vacation rentals need it more often. If you cannot remember the last time it was pumped, it is overdue — call and we will get you on a schedule.',
+        a: 'For most households, every three to five years, depending on tank size and how many people live in the home. Smaller tanks, larger families, and waterfront cabins used as vacation rentals need it more often. If you cannot remember the last time it was pumped, it is probably overdue — call and we will get you on a schedule.',
       },
       {
         q: 'Do you handle the whole system or just pumping?',

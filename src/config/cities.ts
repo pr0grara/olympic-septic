@@ -294,7 +294,7 @@ export const CITIES: City[] = [
       },
       {
         q: 'How often should my tank be pumped?',
-        a: 'Generally every three to five years, but older and undersized tanks common on the long-held lots here often need it sooner, and shoreline systems are watched more closely. If you cannot remember the last pump, it is overdue — we will look at the tank and set a realistic schedule.',
+        a: 'Generally every three to five years, but older and undersized tanks common on the long-held lots here often need it sooner, and shoreline systems are watched more closely. If you cannot remember the last pump, it is probably overdue — we will look at the tank and set a realistic schedule.',
       },
     ],
   },
