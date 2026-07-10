@@ -127,7 +127,7 @@ export const SERVICES: Service[] = [
       },
       {
         q: 'What happens if I never pump my tank?',
-        a: 'Solids build up until they wash out into the drain field and clog the soil. At that point the field can no longer absorb water, you get backups and soggy spots in the yard, and the fix is no longer a pump — it is a partial or full drain field replacement, which is the most expensive job in septic. Pumping on schedule prevents that.',
+        a: 'Solids build up until they wash out into the drain field and clog the soil. At that point the field can no longer absorb water, you get backups and soggy spots in the yard, and the fix is no longer a pump — it is a partial or full drain field replacement, which is the most expensive job in septic. Pumping on schedule is the best way to prevent that.',
       },
       {
         q: 'Do I need to find my tank before you come?',
@@ -315,7 +315,7 @@ export const SERVICES: Service[] = [
     short: 'Emergency Service',
     blurb: 'Sewage backing up, toilets won’t flush, or an alarm going off? Fast help to stop the mess and get you running.',
     description:
-      'A septic backup is not a "next week" problem — it is sewage coming into your home or surfacing in your yard, and it gets worse and more expensive every hour. If your toilets and drains have stopped working, sewage is backing up into tubs or floor drains, you smell it inside, there is effluent surfacing over the tank or field, or a pump alarm is going off, that is an emergency and we treat it like one. We provide fast emergency septic service across the Olympic Peninsula. We come out, find why the system stopped — a full tank, a clogged or broken line, a failed pump, or a saturated drain field — pump the tank to relieve the backup, and get you running again. The first priority is stopping the mess and getting your household functional; then we tell you straight what failed and what it takes to keep it from happening again.',
+      'A septic backup is not a "next week" problem — it is sewage coming into your home or surfacing in your yard, and it tends to get worse and more expensive the longer it sits. If your toilets and drains have stopped working, sewage is backing up into tubs or floor drains, you smell it inside, there is effluent surfacing over the tank or field, or a pump alarm is going off, that is an emergency and we treat it like one. We provide fast emergency septic service across the Olympic Peninsula. We come out, find why the system stopped — a full tank, a clogged or broken line, a failed pump, or a saturated drain field — pump the tank to relieve the backup, and get you running again. The first priority is stopping the mess and getting your household functional; then we tell you straight what failed and what it takes to keep it from happening again.',
     sections: [
       {
         h: 'When a septic problem can’t wait',
