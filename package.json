@@ -1,6 +1,6 @@
 {
   "name": "olympic-septic",
-  "description": "Lead-gen site for Olympic Peninsula Septic — septic pumping, repair & inspections across the Olympic Peninsula and Kitsap.",
+  "description": "Lead-gen site for Olympic Peninsula Septic \u2014 septic pumping, repair & inspections across the Olympic Peninsula and Kitsap.",
   "type": "module",
   "version": "1.0.0",
   "private": true,
@@ -12,7 +12,8 @@
     "build": "astro build",
     "check": "astro check",
     "preview": "astro preview",
-    "deploy": "astro build && npx wrangler deploy"
+    "deploy": "astro build && npx wrangler deploy",
+    "indexnow": "node scripts/indexnow.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
